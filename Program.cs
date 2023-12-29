@@ -24,7 +24,7 @@
 //        Full_name = "Alice Smith",
 //        Date_of_birth = "1985-08-22",
 //        Gender = "Female",
-//        Email = "alice.smith@example.com",
+//        Email = "alice.smith@example.com",B
 //        Country = "Canada",
 //        City = "Toronto"
 //    };
@@ -224,699 +224,1053 @@ while (true)
     try
     {
         Console.WriteLine();
-        Console.WriteLine("Отобразить - 1");
-        Console.WriteLine("Найти - 2");
-        Console.WriteLine("Добавить - 3");
-        Console.WriteLine("Изменить - 4");
-        Console.WriteLine("Удалить - 5");
-        Console.WriteLine("Выход - 6");
+        Console.WriteLine("1 - Отобразить");
+        Console.WriteLine("2 - Найти");
+        Console.WriteLine("3 - Добавить");
+        Console.WriteLine("4 - Изменить");
+        Console.WriteLine("5 - Удалить");
+        Console.WriteLine("6 - Выход");
         Console.WriteLine();
-        ConsoleKeyInfo key_one = Console.ReadKey();
+        Console.Write("Введите номер опции и нажмите Enter: ");
+        int key_one = Convert.ToInt32(Console.ReadLine());
 
-        if (key_one.Key == ConsoleKey.D1)
+        if (key_one == 1)
         {
-            try
+            while(true)
             {
-                Console.WriteLine();
-                Console.WriteLine("Отобразить таблицу 'Покупатели' - 1"); 
-                Console.WriteLine("Отобразить таблицу 'Интересы' - 2");
-                Console.WriteLine("Отобразить таблицу 'Акционные товары' - 3");
-                Console.WriteLine("Вернуться в основное меню - 4");
-                Console.WriteLine();
-                ConsoleKeyInfo key_two = Console.ReadKey();
-
-                if (key_two.Key == ConsoleKey.D1)
+                try
                 {
-                    try
+                    Console.WriteLine();
+                    Console.WriteLine("1 - Отобразить таблицу 'Покупатели'");
+                    Console.WriteLine("2 - Отобразить таблицу 'Интересы'");
+                    Console.WriteLine("3 - Отобразить таблицу 'Акционные товары'");
+                    Console.WriteLine("4 - Отобразить количество покупателей в каждом городе");
+                    Console.WriteLine("5 - Отобразить количество покупателей в каждой стране");
+                    Console.WriteLine("6 - Отобразить количество городов в каждой стране");
+                    Console.WriteLine("7 - Отобразить среднее количество городов в каждой стране");
+                    Console.WriteLine("8 - Отобразить все разделы, в которых заинтересован конкретный покупатель");
+                    Console.WriteLine("9 - Отобразить все акционноые товары конкретного раздела за конкретный промежуток времени");
+                    Console.WriteLine("10 - Отобразить акционные товары конкретного покупателя");
+                    Console.WriteLine("11 - Отобразить топ 3 страны за количеством покупателей");
+                    Console.WriteLine("12 - Отобразить страну с наибольшим количеством покупателей");
+                    Console.WriteLine("13 - Отобразить топ 3 города за количеством покупателей");
+                    Console.WriteLine("14 - Отобразить город с наибольшим количеством покупателей");
+                    Console.WriteLine("15 - Вернуться в основное меню");
+                    Console.WriteLine();
+                    Console.Write("Введите номер опции и нажмите Enter: ");
+                    int key_two = Convert.ToInt32(Console.ReadLine());
+
+                    if (key_two == 1)
                     {
-                        Console.WriteLine();
-                        Console.WriteLine("Выполняется загрузка таблицы...");
-                        using (Context db = new Context())
+                        try
                         {
-                            var all_customers = db.Customers.FromSqlRaw("SELECT * FROM Customers");
-                            Console.WriteLine("|ID| Имя фамилия | Дата рождения | Пол |Электронная почта| Страна | Город |");
-                            foreach(var ac in all_customers )
-                                Console.WriteLine($"| {ac.Id} | {ac.Full_name} | {ac.Date_of_birth} | {ac.Gender} | {ac.Email} | {ac.Country} | {ac.City} |");
+                            Console.WriteLine();
+                            Console.WriteLine("Выполняется загрузка таблицы...");
+                            using (Context db = new Context())
+                            {
+                                var all_customers = db.Customers.FromSqlRaw("SELECT * FROM Customers");
+                                Console.WriteLine("|ID| Имя фамилия | Дата рождения | Пол |Электронная почта| Страна | Город |");
+                                foreach (var ac in all_customers)
+                                    Console.WriteLine($"| {ac.Id} | {ac.Full_name} | {ac.Date_of_birth} | {ac.Gender} | {ac.Email} | {ac.Country} | {ac.City} |");
+                            }
+                            Console.WriteLine();
                         }
-                        Console.WriteLine();
-                    }
-                    catch(Exception ex)
-                    {
-                        Console.WriteLine();
-                        Console.WriteLine($"Ошибка: {ex.Message}");
-                        Console.WriteLine();
-                    }
-                }
-
-                if (key_two.Key == ConsoleKey.D2)
-                {
-                    try
-                    {
-                        Console.WriteLine();
-                        Console.WriteLine("Выполняется загрузка таблицы...");
-                        using (Context db = new Context())
+                        catch (Exception ex)
                         {
-                            var all_interests = db.Interests.FromSqlRaw("SELECT * FROM Interests");
-                            Console.WriteLine("|ID| ID покупателя | Категория |");
-                            foreach (var ai in all_interests)
-                                Console.WriteLine($"| {ai.Id} | {ai.Customer_Id} | {ai.Section} |");
+                            Console.WriteLine();
+                            Console.WriteLine($"Ошибка: {ex.Message}");
+                            Console.WriteLine();
                         }
-                        Console.WriteLine();
                     }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine();
-                        Console.WriteLine($"Ошибка: {ex.Message}");
-                        Console.WriteLine();
-                    }
-                }
 
-                if (key_two.Key == ConsoleKey.D3)
-                {
-                    try
+                    if (key_two == 2)
                     {
-                        Console.WriteLine();
-                        Console.WriteLine("Выполняется загрузка таблицы...");
-                        using (Context db = new Context())
+                        try
                         {
-                            var all_promotions = db.Promotions.FromSqlRaw("SELECT * FROM Promotions");
-                            Console.WriteLine("|ID| Страна | Город | Категория | Товар | Дата начала акции | Дата окончания акции |");
-                            foreach (var ap in all_promotions)
-                                Console.WriteLine($"| {ap.Id} | {ap.Country} | {ap.City} | {ap.Section} | {ap.Product} | {ap.Start_time} | {ap.End_time} |");
+                            Console.WriteLine();
+                            Console.WriteLine("Выполняется загрузка таблицы...");
+                            using (Context db = new Context())
+                            {
+                                var all_interests = db.Interests.FromSqlRaw("SELECT * FROM Interests");
+                                Console.WriteLine("|ID| ID покупателя | Категория |");
+                                foreach (var ai in all_interests)
+                                    Console.WriteLine($"| {ai.Id} | {ai.Customer_Id} | {ai.Section} |");
+                            }
+                            Console.WriteLine();
                         }
-                        Console.WriteLine();
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine($"Ошибка: {ex.Message}");
+                            Console.WriteLine();
+                        }
                     }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine();
-                        Console.WriteLine($"Ошибка: {ex.Message}");
-                        Console.WriteLine();
-                    }
-                }
 
-                if (key_two.Key == ConsoleKey.D4)
-                {
-                    
+                    if (key_two == 3)
+                    {
+                        try
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine("Выполняется загрузка таблицы...");
+                            using (Context db = new Context())
+                            {
+                                var all_promotions = db.Promotions.FromSqlRaw("SELECT * FROM Promotions");
+                                Console.WriteLine("|ID| Страна | Город | Категория | Товар | Дата начала акции | Дата окончания акции |");
+                                foreach (var ap in all_promotions)
+                                    Console.WriteLine($"| {ap.Id} | {ap.Country} | {ap.City} | {ap.Section} | {ap.Product} | {ap.Start_time} | {ap.End_time} |");
+                            }
+                            Console.WriteLine();
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine($"Ошибка: {ex.Message}");
+                            Console.WriteLine();
+                        }
+                    }
+
+                    if (key_two == 4)
+                    {
+                        try
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine("Выполняется загрузка таблицы...");
+                            using (Context db = new Context())
+                            {
+                                var list = db.Customers.GroupBy(c => c.City).ToList();
+                                var count = list.Select(g => new { City = g.Key, Count = g.Count() });
+
+                                Console.WriteLine("| Город | Количество покупателей ");
+                                foreach (var item in count)
+                                {
+                                    Console.WriteLine($"| {item.City} | {item.Count} |");
+                                }
+                                Console.WriteLine();
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine($"Ошибка: {ex.Message}");
+                            Console.WriteLine();
+                        }
+                    }
+
+                    if (key_two == 5)
+                    {
+                        try
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine("Выполняется загрузка таблицы...");
+                            using (Context db = new Context())
+                            {
+                                var list = db.Customers.GroupBy(c => c.Country).ToList();
+                                var count = list.Select(g => new { Country = g.Key, Count = g.Count() });
+
+                                Console.WriteLine("| Страна | Количество покупателей ");
+                                foreach (var item in count)
+                                {
+                                    Console.WriteLine($"| {item.Country} | {item.Count} |");
+                                }
+                                Console.WriteLine();
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine($"Ошибка: {ex.Message}");
+                            Console.WriteLine();
+                        }
+                    }
+
+                    if (key_two == 6)
+                    {
+                        try
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine("Выполняется загрузка таблицы...");
+                            using (Context db = new Context())
+                            {
+                                var list = db.Customers.GroupBy(c => c.Country).ToList();
+                                var count = list.Select(g => new { Country = g.Key, Count = g.Select(c => c.City).Distinct().Count() }).ToList();
+
+                                Console.WriteLine("| Страна | Количество городов ");
+                                foreach (var item in count)
+                                {
+                                    Console.WriteLine($"| {item.Country} | {item.Count} |");
+                                }
+                                Console.WriteLine();
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine($"Ошибка: {ex.Message}");
+                            Console.WriteLine();
+                        }
+                    }
+
+                    if (key_two == 7)
+                    {
+                        try
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine("Выполняется загрузка таблицы...");
+                            using (Context db = new Context())
+                            {
+                                var list = db.Customers.GroupBy(c => c.Country).ToList();
+                                var count = list.Select(g => g.Select(c => c.City).Distinct().Count()).Sum();
+
+                                Console.WriteLine($"Среднее количество городов: {count / list.Count()}");
+
+
+                                Console.WriteLine();
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine($"Ошибка: {ex.Message}");
+                            Console.WriteLine();
+                        }
+                    }
+
+                    if (key_two == 8)
+                    {
+                        try
+                        {
+                            Console.WriteLine();
+                            Console.Write("Введите Id покупателя: ");
+                            int id = Convert.ToInt32(Console.ReadLine());
+                            Console.WriteLine("Выполняется загрузка списка...");
+                            Console.WriteLine();
+                            using (Context db = new Context())
+                            {
+                                var sections = db.Interests.Where(i => i.Customer_Id == id)
+                                    .Select(i => i.Section)
+                                    .Distinct()
+                                    .ToList();
+
+                                Console.WriteLine($"Список разделов в которых заинтересован покупатель {id}:");
+                                foreach (var section in sections)
+                                {
+                                    Console.WriteLine(section);
+                                }
+
+                                Console.WriteLine();
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine($"Ошибка: {ex.Message}");
+                            Console.WriteLine();
+                        }
+                    }
+
+                    if (key_two == 9)
+                    {
+                        try
+                        {
+                            Console.Write("Введите название категории: ");
+                            string section = Console.ReadLine();
+                            Console.Write("Введите дату начала акции в формате 2023-12-31 10:00 АМ/РМ: ");
+                            string start_time = Console.ReadLine();
+                            Console.Write("Введите дату окончания акции в формате 2023-12-31 10:00 АМ/РМ: ");
+                            string end_time = Console.ReadLine();
+                            Console.WriteLine("Выполняется загрузка списка...");
+                            Console.WriteLine();
+                            using (Context db = new Context())
+                            {
+                                var products = db.Promotions.Where(p => p.Section == section && p.Start_time == start_time && p.End_time == end_time)
+                                    .Select(p => p.Product)
+                                    .ToList();
+
+                                Console.WriteLine($"Список акционных товаров категории {section} за {start_time} - {end_time}:");
+                                Console.WriteLine();
+                                foreach (var product in products)
+                                {
+                                    Console.WriteLine(product);
+                                }
+                                Console.WriteLine();
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine($"Ошибка: {ex.Message}");
+                            Console.WriteLine();
+                        }
+                    }
+
+                    if (key_two == 10)
+                    {
+                        try
+                        {
+                            Console.WriteLine();
+                            Console.Write("Введите Id покупателя: ");
+                            int id = Convert.ToInt32(Console.ReadLine());
+                            Console.WriteLine("Выполняется загрузка списка...");
+                            Console.WriteLine();
+                            using (Context db = new Context())
+                            {
+                                string section = db.Interests.Where(i => i.Customer_Id == id).Select(i => i.Section).FirstOrDefault();
+                                var products = db.Promotions.Where(p => p.Section == section).Select(p => p.Product);
+
+                                Console.WriteLine($"Список акционных товаров покупателя {id}:");
+                                Console.WriteLine();
+                                foreach (var product in products)
+                                {
+                                    Console.WriteLine(product);
+                                }
+
+                                Console.WriteLine();
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine($"Ошибка: {ex.Message}");
+                            Console.WriteLine();
+                        }
+                    }
+
+                    if (key_two == 11)
+                    {
+                        try
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine("Выполняется загрузка таблицы...");
+                            using (Context db = new Context())
+                            {
+                                var grouped = db.Customers.GroupBy(c => c.Country).ToList();
+                                var top = grouped.OrderByDescending(g => g.Count()).Take(3).ToList();
+
+                                Console.WriteLine("| Место | Страна | Количество покупателей |");
+                                for (int i = 0; i < top.Count; i++)
+                                {
+                                    int place = i + 1;
+                                    string country = top[i].Key; 
+                                    int count = top[i].Count(); 
+
+                                    Console.WriteLine($"| {place} | {country} | {count} |");
+                                }
+
+                                Console.WriteLine();
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine($"Ошибка: {ex.Message}");
+                            Console.WriteLine();
+                        }
+                    }
+
+                    if (key_two == 12)
+                    {
+                        try
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine("Выполняется загрузка таблицы...");
+                            using (Context db = new Context())
+                            {
+                                var list = db.Customers.GroupBy(c => c.Country).ToList();
+                                var count = list.Select(g => g.Count()).ToList();
+                                var max_count = count.OrderByDescending(c => c).FirstOrDefault();
+                                var country = list.FirstOrDefault(g => g.Count() == max_count)?.Key;
+
+                                Console.WriteLine("| Название страны | Количество покупателей |");
+                                Console.WriteLine($"| {country} | {max_count} |");
+                                Console.WriteLine();
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine($"Ошибка: {ex.Message}");
+                            Console.WriteLine();
+                        }
+                    }
+
+                    if (key_two == 13)
+                    {
+                        try
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine("Выполняется загрузка таблицы...");
+                            using (Context db = new Context())
+                            {
+                                var grouped = db.Customers.GroupBy(c => c.City).ToList();
+                                var top = grouped.OrderByDescending(g => g.Count()).Take(3).ToList();
+
+                                Console.WriteLine("| Место | Город | Количество покупателей |");
+                                for (int i = 0; i < top.Count; i++)
+                                {
+                                    int place = i + 1;
+                                    string city = top[i].Key;
+                                    int count = top[i].Count();
+
+                                    Console.WriteLine($"| {place} | {city} | {count} |");
+                                }
+
+                                Console.WriteLine();
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine($"Ошибка: {ex.Message}");
+                            Console.WriteLine();
+                        }
+                    }
+
+                    if (key_two == 14)
+                    {
+                        try
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine("Выполняется загрузка таблицы...");
+                            using (Context db = new Context())
+                            {
+                                var list = db.Customers.GroupBy(c => c.City).ToList();
+                                var count = list.Select(g => g.Count()).ToList();
+                                var max_count = count.OrderByDescending(c => c).FirstOrDefault();
+                                var city = list.FirstOrDefault(g => g.Count() == max_count)?.Key;
+
+                                Console.WriteLine("| Название города | Количество покупателей |");
+                                Console.WriteLine($"| {city} | {max_count} |");
+                                Console.WriteLine();
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine($"Ошибка: {ex.Message}");
+                            Console.WriteLine();
+                        }
+                    }
+
+                    if (key_two == 15)
+                    {
+                        break;
+                    }
                 }
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine();
-                Console.WriteLine($"Ошибка: {ex.Message}");
-                Console.WriteLine();
+                catch (Exception ex)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine($"Ошибка: {ex.Message}");
+                    Console.WriteLine();
+                }
             }
         }
 
-        if (key_one.Key == ConsoleKey.D2)
+        if (key_one == 2)
         {
-            try
+            while(true)
             {
-                Console.WriteLine();
-                Console.WriteLine("Искать в таблице 'Покупатели' - 1");
-                Console.WriteLine("Искать в таблице 'Интересы' - 2");
-                Console.WriteLine("Искать в таблице 'Акционные товары' - 3");
-                Console.WriteLine("Вернуться в основное меню - 4");
-                Console.WriteLine();
-                ConsoleKeyInfo key_two = Console.ReadKey();
-
-                if (key_two.Key == ConsoleKey.D1)
+                try
                 {
-                    try
+                    Console.WriteLine();
+                    Console.WriteLine("1 - Искать в таблице 'Покупатели'");
+                    Console.WriteLine("2 - Искать в таблице 'Интересы'");
+                    Console.WriteLine("3 - Искать в таблице 'Акционные товары'");
+                    Console.WriteLine("4 - Вернуться в основное меню");
+                    Console.WriteLine();
+                    Console.Write("Введите номер опции и нажмите Enter: ");
+                    int key_two = Convert.ToInt32(Console.ReadLine());
+
+                    if (key_two == 1)
                     {
-                        Console.WriteLine();
-                        Console.Write("Введите ключевое слово: ");
-                        string word = Console.ReadLine();
-                        using (Context db = new Context())
+                        try
                         {
-                            var search = db.Customers.Where(
-                                c => c.Full_name.Contains(word) ||
-                                c.Date_of_birth.Contains(word) ||
-                                c.Gender.Contains(word) ||
-                                c.Email.Contains(word) ||
-                                c.Country.Contains(word) ||
-                                c.City.Contains(word));
-
-                            if (search.Any())
+                            Console.WriteLine();
+                            Console.Write("Введите ключевое слово: ");
+                            string word = Console.ReadLine();
+                            using (Context db = new Context())
                             {
-                                Console.WriteLine();
-                                Console.WriteLine("| ID | Имя фамилия | Дата рождения | Пол | Электронная почта | Страна | Город |");
+                                var search = db.Customers.Where(
+                                    c => c.Full_name.Contains(word) ||
+                                    c.Date_of_birth.Contains(word) ||
+                                    c.Gender.Contains(word) ||
+                                    c.Email.Contains(word) ||
+                                    c.Country.Contains(word) ||
+                                    c.City.Contains(word));
 
-                                foreach (var customer in search)
+                                if (search.Any())
                                 {
-                                    Console.WriteLine($"| {customer.Id} | {customer.Full_name} | {customer.Date_of_birth} | {customer.Gender} | {customer.Email} | {customer.Country} | {customer.City} |");
+                                    Console.WriteLine();
+                                    Console.WriteLine("| ID | Имя фамилия | Дата рождения | Пол | Электронная почта | Страна | Город |");
+
+                                    foreach (var customer in search)
+                                    {
+                                        Console.WriteLine($"| {customer.Id} | {customer.Full_name} | {customer.Date_of_birth} | {customer.Gender} | {customer.Email} | {customer.Country} | {customer.City} |");
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine();
+                                    Console.WriteLine("Записей не найдено.");
                                 }
                             }
-                            else
-                            {
-                                Console.WriteLine();
-                                Console.WriteLine("Записей не найдено.");
-                            }
+                            Console.WriteLine();
                         }
-                        Console.WriteLine();
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine();
-                        Console.WriteLine($"Ошибка: {ex.Message}");
-                        Console.WriteLine();
-                    }
-                }
-
-                if (key_two.Key == ConsoleKey.D2)
-                {
-                    try
-                    {
-                        Console.WriteLine();
-                        Console.Write("Введите ключевое слово: ");
-                        string word = Console.ReadLine();
-                        using (Context db = new Context())
+                        catch (Exception ex)
                         {
-                            var search = db.Interests.Where(
-                                c => c.Customer_Id == Convert.ToInt32(word) ||
-                                c.Section.Contains(word));
+                            Console.WriteLine();
+                            Console.WriteLine($"Ошибка: {ex.Message}");
+                            Console.WriteLine();
+                        }
+                    }
 
-                            if (search.Any())
+                    if (key_two == 2)
+                    {
+                        try
+                        {
+                            Console.WriteLine();
+                            Console.Write("Введите ключевое слово: ");
+                            string word = Console.ReadLine();
+                            using (Context db = new Context())
                             {
-                                Console.WriteLine();
-                                Console.WriteLine("| ID | Id покупателя | Категория |");
+                                var search = db.Interests.Where(
+                                    c => c.Customer_Id == Convert.ToInt32(word) ||
+                                    c.Section.Contains(word));
 
-                                foreach (var interests in search)
+                                if (search.Any())
                                 {
-                                    Console.WriteLine($"| {interests.Id} | {interests.Customer_Id} | {interests.Section} |");
+                                    Console.WriteLine();
+                                    Console.WriteLine("| ID | Id покупателя | Категория |");
+
+                                    foreach (var interests in search)
+                                    {
+                                        Console.WriteLine($"| {interests.Id} | {interests.Customer_Id} | {interests.Section} |");
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine();
+                                    Console.WriteLine("Записей не найдено.");
                                 }
                             }
-                            else
-                            {
-                                Console.WriteLine();
-                                Console.WriteLine("Записей не найдено.");
-                            }
+                            Console.WriteLine();
                         }
-                        Console.WriteLine();
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine();
-                        Console.WriteLine($"Ошибка: {ex.Message}");
-                        Console.WriteLine();
-                    }
-                }
-
-                if (key_two.Key == ConsoleKey.D3)
-                {
-                    try
-                    {
-                        Console.WriteLine();
-                        Console.Write("Введите ключевое слово: ");
-                        string word = Console.ReadLine();
-                        using (Context db = new Context())
+                        catch (Exception ex)
                         {
-                            var search = db.Promotions.Where(
-                                c => c.Country.Contains(word) ||
-                                c.City.Contains(word) ||
-                                c.Section.Contains(word) ||
-                                c.Product.Contains(word) ||
-                                c.Start_time.Contains(word) ||
-                                c.End_time.Contains(word));
+                            Console.WriteLine();
+                            Console.WriteLine($"Ошибка: {ex.Message}");
+                            Console.WriteLine();
+                        }
+                    }
 
-                            if (search.Any())
+                    if (key_two == 3)
+                    {
+                        try
+                        {
+                            Console.WriteLine();
+                            Console.Write("Введите ключевое слово: ");
+                            string word = Console.ReadLine();
+                            using (Context db = new Context())
                             {
-                                Console.WriteLine();
-                                Console.WriteLine("| ID | Страна | Город | Категория | Товар | Дата начала акции | Дата окончания акции |");
+                                var search = db.Promotions.Where(
+                                    c => c.Country.Contains(word) ||
+                                    c.City.Contains(word) ||
+                                    c.Section.Contains(word) ||
+                                    c.Product.Contains(word) ||
+                                    c.Start_time.Contains(word) ||
+                                    c.End_time.Contains(word));
 
-                                foreach (var promotion in search)
+                                if (search.Any())
                                 {
-                                    Console.WriteLine($"| {promotion.Id} | {promotion.Country} | {promotion.City} | {promotion.Section} | {promotion.Product} | {promotion.Start_time} | {promotion.End_time} |");
+                                    Console.WriteLine();
+                                    Console.WriteLine("| ID | Страна | Город | Категория | Товар | Дата начала акции | Дата окончания акции |");
+
+                                    foreach (var promotion in search)
+                                    {
+                                        Console.WriteLine($"| {promotion.Id} | {promotion.Country} | {promotion.City} | {promotion.Section} | {promotion.Product} | {promotion.Start_time} | {promotion.End_time} |");
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine();
+                                    Console.WriteLine("Записей не найдено.");
                                 }
                             }
-                            else
-                            {
-                                Console.WriteLine();
-                                Console.WriteLine("Записей не найдено.");
-                            }
+                            Console.WriteLine();
                         }
-                        Console.WriteLine();
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine($"Ошибка: {ex.Message}");
+                            Console.WriteLine();
+                        }
                     }
-                    catch (Exception ex)
+
+                    if (key_two == 4)
                     {
-                        Console.WriteLine();
-                        Console.WriteLine($"Ошибка: {ex.Message}");
-                        Console.WriteLine();
+                        break;
                     }
                 }
-
-                if (key_two.Key == ConsoleKey.D4)
+                catch (Exception ex)
                 {
-
+                    Console.WriteLine();
+                    Console.WriteLine($"Ошибка: {ex.Message}");
+                    Console.WriteLine();
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine();
-                Console.WriteLine($"Ошибка: {ex.Message}");
-                Console.WriteLine();
             }
         }
 
-        if (key_one.Key == ConsoleKey.D3)
+        if (key_one == 3)
         {
-            try
+            while(true)
             {
-                Console.WriteLine();
-                Console.WriteLine("Добавить в таблицу 'Покупатели' - 1");
-                Console.WriteLine("Добавить в таблицу 'Интересы' - 2");
-                Console.WriteLine("Добавить в таблицу 'Акционные товары' - 3");
-                Console.WriteLine("Вернуться в основное меню - 4");
-                Console.WriteLine();
-                ConsoleKeyInfo key_two = Console.ReadKey();
-
-                if (key_two.Key == ConsoleKey.D1)
+                try
                 {
-                    try
+                    Console.WriteLine();
+                    Console.WriteLine("1 - Добавить в таблицу 'Покупатели'");
+                    Console.WriteLine("2 - Добавить в таблицу 'Интересы'");
+                    Console.WriteLine("3 - Добавить в таблицу 'Акционные товары'");
+                    Console.WriteLine("4 - Вернуться в основное меню");
+                    Console.WriteLine();
+                    Console.Write("Введите номер опции и нажмите Enter: ");
+                    int key_two = Convert.ToInt32(Console.ReadLine());
+
+                    if (key_two == 1)
                     {
-                        Console.WriteLine();
-                        Console.Write("Введите имя и фамилию: ");
-                        string full_name = Console.ReadLine();
-                        Console.Write("Введите дату рождения:");
-                        string date_of_birth = Console.ReadLine();
-                        Console.Write("Введите пол: ");
-                        string gender = Console.ReadLine();
-                        Console.Write("Введите электронную почту: ");
-                        string email = Console.ReadLine();
-                        Console.Write("Введите страну: ");
-                        string country = Console.ReadLine();
-                        Console.Write("Введите город: ");
-                        string city = Console.ReadLine();
-                        using (Context db = new Context())
+                        try
                         {
-                            Customers c = new Customers
+                            Console.WriteLine();
+                            Console.Write("Введите имя и фамилию: ");
+                            string full_name = Console.ReadLine();
+                            Console.Write("Введите дату рождения:");
+                            string date_of_birth = Console.ReadLine();
+                            Console.Write("Введите пол: ");
+                            string gender = Console.ReadLine();
+                            Console.Write("Введите электронную почту: ");
+                            string email = Console.ReadLine();
+                            Console.Write("Введите страну: ");
+                            string country = Console.ReadLine();
+                            Console.Write("Введите город: ");
+                            string city = Console.ReadLine();
+                            using (Context db = new Context())
                             {
-                                Full_name = full_name,
-                                Date_of_birth = date_of_birth,
-                                Gender = gender,
-                                Email = email,
-                                Country = country,
-                                City = city
-                            };
+                                Customers c = new Customers
+                                {
+                                    Full_name = full_name,
+                                    Date_of_birth = date_of_birth,
+                                    Gender = gender,
+                                    Email = email,
+                                    Country = country,
+                                    City = city
+                                };
 
-                            db.Customers.Add(c);
-                            db.SaveChanges();
+                                db.Customers.Add(c);
+                                db.SaveChanges();
+                            }
+                            Console.WriteLine("Данные успешно добавлены в таблицу!");
+                            Console.WriteLine();
                         }
-                        Console.WriteLine("Данные успешно добавлены в таблицу!");
-                        Console.WriteLine();
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine();
-                        Console.WriteLine($"Ошибка: {ex.Message}");
-                        Console.WriteLine();
-                    }
-                }
-
-                if (key_two.Key == ConsoleKey.D2)
-                {
-                    try
-                    {
-                        Console.WriteLine();
-                        Console.Write("Введите Id покупателя: ");
-                        int customer_id = Convert.ToInt32(Console.ReadLine());
-                        Console.Write("Введите категорию: ");
-                        string section = Console.ReadLine();
-                        using (Context db = new Context())
+                        catch (Exception ex)
                         {
-                            Interests i = new Interests
-                            {
-                                Customer_Id = customer_id,
-                                Section = section
-                            };
-
-                            db.Interests.Add(i);
-                            db.SaveChanges();
+                            Console.WriteLine();
+                            Console.WriteLine($"Ошибка: {ex.Message}");
+                            Console.WriteLine();
                         }
-                        Console.WriteLine("Данные успешно добавлены в таблицу!");
-                        Console.WriteLine();
                     }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine();
-                        Console.WriteLine($"Ошибка: {ex.Message}");
-                        Console.WriteLine();
-                    }
-                }
 
-                if (key_two.Key == ConsoleKey.D3)
-                {
-                    try
+                    if (key_two == 2)
                     {
-                        Console.WriteLine();
-                        Console.Write("Введите страну: ");
-                        string country = Console.ReadLine();
-                        Console.Write("Введите город: ");
-                        string city = Console.ReadLine();
-                        Console.Write("Введите категирию: ");
-                        string section = Console.ReadLine();
-                        Console.Write("Введите название товара: ");
-                        string product = Console.ReadLine();
-                        Console.Write("Введите дату и время начала акции: ");
-                        string start_time = Console.ReadLine();
-                        Console.Write("Введите дату и время конца акции: ");
-                        string end_time = Console.ReadLine();
-                        using (Context db = new Context())
+                        try
                         {
-                            Promotions p = new Promotions
+                            Console.WriteLine();
+                            Console.Write("Введите Id покупателя: ");
+                            int customer_id = Convert.ToInt32(Console.ReadLine());
+                            Console.Write("Введите категорию: ");
+                            string section = Console.ReadLine();
+                            using (Context db = new Context())
                             {
-                                Country = country,
-                                City = city,
-                                Section = section,
-                                Product = product,
-                                Start_time = start_time,
-                                End_time = end_time
-                            };
+                                Interests i = new Interests
+                                {
+                                    Customer_Id = customer_id,
+                                    Section = section
+                                };
 
-                            db.Promotions.Add(p);
-                            db.SaveChanges();
+                                db.Interests.Add(i);
+                                db.SaveChanges();
+                            }
+                            Console.WriteLine("Данные успешно добавлены в таблицу!");
+                            Console.WriteLine();
                         }
-                        Console.WriteLine("Данные успешно добавлены в таблицу!");
-                        Console.WriteLine();
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine($"Ошибка: {ex.Message}");
+                            Console.WriteLine();
+                        }
                     }
-                    catch (Exception ex)
+
+                    if (key_two == 3)
                     {
-                        Console.WriteLine();
-                        Console.WriteLine($"Ошибка: {ex.Message}");
-                        Console.WriteLine();
+                        try
+                        {
+                            Console.WriteLine();
+                            Console.Write("Введите страну: ");
+                            string country = Console.ReadLine();
+                            Console.Write("Введите город: ");
+                            string city = Console.ReadLine();
+                            Console.Write("Введите категирию: ");
+                            string section = Console.ReadLine();
+                            Console.Write("Введите название товара: ");
+                            string product = Console.ReadLine();
+                            Console.Write("Введите дату и время начала акции: ");
+                            string start_time = Console.ReadLine();
+                            Console.Write("Введите дату и время конца акции: ");
+                            string end_time = Console.ReadLine();
+                            using (Context db = new Context())
+                            {
+                                Promotions p = new Promotions
+                                {
+                                    Country = country,
+                                    City = city,
+                                    Section = section,
+                                    Product = product,
+                                    Start_time = start_time,
+                                    End_time = end_time
+                                };
+
+                                db.Promotions.Add(p);
+                                db.SaveChanges();
+                            }
+                            Console.WriteLine("Данные успешно добавлены в таблицу!");
+                            Console.WriteLine();
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine($"Ошибка: {ex.Message}");
+                            Console.WriteLine();
+                        }
+                    }
+
+                    if (key_two == 4)
+                    {
+                        break;
                     }
                 }
-
-                if (key_two.Key == ConsoleKey.D4)
+                catch (Exception ex)
                 {
-
+                    Console.WriteLine();
+                    Console.WriteLine($"Ошибка: {ex.Message}");
+                    Console.WriteLine();
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine();
-                Console.WriteLine($"Ошибка: {ex.Message}");
-                Console.WriteLine();
             }
         }
 
-        if (key_one.Key == ConsoleKey.D4)
+        if (key_one == 4)
         {
-            try
+            while(true)
             {
-                Console.WriteLine();
-                Console.WriteLine("Изменить в таблице 'Покупатели' - 1");
-                Console.WriteLine("Изменить в таблице 'Интересы' - 2");
-                Console.WriteLine("Изменить в таблице 'Акционные товары' - 3");
-                Console.WriteLine("Вернуться в основное меню - 4");
-                Console.WriteLine();
-                ConsoleKeyInfo key_two = Console.ReadKey();
-
-                if (key_two.Key == ConsoleKey.D1)
+                try
                 {
-                    try
+                    Console.WriteLine();
+                    Console.WriteLine("1 - Изменить в таблице 'Покупатели'");
+                    Console.WriteLine("2 - Изменить в таблице 'Интересы'");
+                    Console.WriteLine("3 - Изменить в таблице 'Акционные товары'");
+                    Console.WriteLine("4 - Вернуться в основное меню");
+                    Console.WriteLine();
+                    Console.Write("Введите номер опции и нажмите Enter: ");
+                    int key_two = Convert.ToInt32(Console.ReadLine());
+
+                    if (key_two == 1)
                     {
-                        Console.WriteLine();
-                        Console.Write("Введите значение для замены: ");
-                        string old_value = Console.ReadLine();
-                        Console.Write("Введите новое значение: ");
-                        string new_value = Console.ReadLine();
-                        using (Context db = new Context())
+                        try
                         {
-                            var update = db.Customers.Where(
-                                c => c.Full_name == old_value ||
-                                c.Date_of_birth == old_value ||
-                                c.Gender == old_value ||
-                                c.Email == old_value ||
-                                c.Country == old_value ||
-                                c.City == old_value);
-
-                            if(update.Any())
+                            Console.WriteLine();
+                            Console.Write("Введите значение для замены: ");
+                            string old_value = Console.ReadLine();
+                            Console.Write("Введите новое значение: ");
+                            string new_value = Console.ReadLine();
+                            using (Context db = new Context())
                             {
-                                foreach (var customer in update)
+                                var update = db.Customers.Where(
+                                    c => c.Full_name == old_value ||
+                                    c.Date_of_birth == old_value ||
+                                    c.Gender == old_value ||
+                                    c.Email == old_value ||
+                                    c.Country == old_value ||
+                                    c.City == old_value);
+
+                                if (update.Any())
                                 {
-                                    if (customer.Full_name == old_value)
-                                        customer.Full_name = new_value;
+                                    foreach (var customer in update)
+                                    {
+                                        if (customer.Full_name == old_value)
+                                            customer.Full_name = new_value;
 
-                                    if (customer.Date_of_birth == old_value)
-                                        customer.Date_of_birth = new_value;
+                                        if (customer.Date_of_birth == old_value)
+                                            customer.Date_of_birth = new_value;
 
-                                    if (customer.Gender == old_value)
-                                        customer.Gender = new_value;
+                                        if (customer.Gender == old_value)
+                                            customer.Gender = new_value;
 
-                                    if (customer.Email == old_value)
-                                        customer.Email = new_value;
+                                        if (customer.Email == old_value)
+                                            customer.Email = new_value;
 
-                                    if (customer.Country == old_value)
-                                        customer.Country = new_value;
+                                        if (customer.Country == old_value)
+                                            customer.Country = new_value;
 
-                                    if (customer.City == old_value)
-                                        customer.City = new_value;
+                                        if (customer.City == old_value)
+                                            customer.City = new_value;
+                                    }
+
+                                    db.SaveChanges();
+                                    Console.WriteLine("Значение было успешно обновлено!");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Значение для замены не найдено.");
+                                }
+                            }
+                            Console.WriteLine();
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine($"Ошибка: {ex.Message}");
+                            Console.WriteLine();
+                        }
+                    }
+
+                    if (key_two == 2)
+                    {
+                        try
+                        {
+                            Console.WriteLine();
+                            Console.Write("Введите значение для замены: ");
+                            string old_value = Console.ReadLine();
+                            Console.Write("Введите новое значение: ");
+                            string new_value = Console.ReadLine();
+                            using (Context db = new Context())
+                            {
+                                var update = db.Interests.Where(
+                                    c => c.Customer_Id.ToString() == old_value ||
+                                    c.Section == old_value);
+
+                                if (update.Any())
+                                {
+                                    foreach (var interest in update)
+                                    {
+                                        if (interest.Customer_Id.ToString() == old_value)
+                                            interest.Customer_Id = Convert.ToInt32(new_value);
+
+                                        if (interest.Section == old_value)
+                                            interest.Section = new_value;
+                                    }
+                                    db.SaveChanges();
+                                    Console.WriteLine("Значение было успешно обновлено!");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Значение для замены не найдено.");
                                 }
 
                                 db.SaveChanges();
-                                Console.WriteLine("Значение было успешно обновлено!");
                             }
-                            else
-                            {
-                                Console.WriteLine("Значение для замены не найдено.");
-                            }
+                            Console.WriteLine();
                         }
-                        Console.WriteLine();
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine();
-                        Console.WriteLine($"Ошибка: {ex.Message}");
-                        Console.WriteLine();
-                    }
-                }
-
-                if (key_two.Key == ConsoleKey.D2)
-                {
-                    try
-                    {
-                        Console.WriteLine();
-                        Console.Write("Введите значение для замены: ");
-                        string old_value = Console.ReadLine();
-                        Console.Write("Введите новое значение: ");
-                        string new_value = Console.ReadLine();
-                        using (Context db = new Context())
+                        catch (Exception ex)
                         {
-                            var update = db.Interests.Where(
-                                c => c.Customer_Id.ToString() == old_value ||
-                                c.Section == old_value);
-
-                            if(update.Any())
-                            {
-                                foreach (var interest in update)
-                                {
-                                    if (interest.Customer_Id.ToString() == old_value)
-                                        interest.Customer_Id = Convert.ToInt32(new_value);
-
-                                    if (interest.Section == old_value)
-                                        interest.Section = new_value;
-                                }
-                                db.SaveChanges();
-                                Console.WriteLine("Значение было успешно обновлено!");
-                            }
-                            else
-                            {
-                                Console.WriteLine("Значение для замены не найдено.");
-                            }
-
-                            db.SaveChanges();
+                            Console.WriteLine();
+                            Console.WriteLine($"Ошибка: {ex.Message}");
+                            Console.WriteLine();
                         }
-                        Console.WriteLine();
                     }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine();
-                        Console.WriteLine($"Ошибка: {ex.Message}");
-                        Console.WriteLine();
-                    }
-                }
 
-                if (key_two.Key == ConsoleKey.D3)
-                {
-                    try
+                    if (key_two == 3)
                     {
-                        Console.WriteLine();
-                        Console.Write("Введите значение для замены: ");
-                        string old_value = Console.ReadLine();
-                        Console.Write("Введите новое значение: ");
-                        string new_value = Console.ReadLine();
-                        using (Context db = new Context())
+                        try
                         {
-                            var update = db.Promotions.Where(
-                                c => c.Country == old_value ||
-                                c.City == old_value ||
-                                c.Section == old_value ||
-                                c.Product == old_value ||
-                                c.Start_time == old_value ||
-                                c.End_time == old_value);
-
-                            if (update.Any())
+                            Console.WriteLine();
+                            Console.Write("Введите значение для замены: ");
+                            string old_value = Console.ReadLine();
+                            Console.Write("Введите новое значение: ");
+                            string new_value = Console.ReadLine();
+                            using (Context db = new Context())
                             {
-                                foreach (var promotion in update)
+                                var update = db.Promotions.Where(
+                                    c => c.Country == old_value ||
+                                    c.City == old_value ||
+                                    c.Section == old_value ||
+                                    c.Product == old_value ||
+                                    c.Start_time == old_value ||
+                                    c.End_time == old_value);
+
+                                if (update.Any())
                                 {
-                                    if (promotion.Country == old_value)
-                                        promotion.Country = new_value;
+                                    foreach (var promotion in update)
+                                    {
+                                        if (promotion.Country == old_value)
+                                            promotion.Country = new_value;
 
-                                    if (promotion.City == old_value)
-                                        promotion.City = new_value;
+                                        if (promotion.City == old_value)
+                                            promotion.City = new_value;
 
-                                    if (promotion.Section == old_value)
-                                        promotion.Section = new_value;
+                                        if (promotion.Section == old_value)
+                                            promotion.Section = new_value;
 
-                                    if (promotion.Product == old_value)
-                                        promotion.Product = new_value;
+                                        if (promotion.Product == old_value)
+                                            promotion.Product = new_value;
 
-                                    if (promotion.Start_time == old_value)
-                                        promotion.Start_time = new_value;
+                                        if (promotion.Start_time == old_value)
+                                            promotion.Start_time = new_value;
 
-                                    if (promotion.End_time == old_value)
-                                        promotion.End_time = new_value;
+                                        if (promotion.End_time == old_value)
+                                            promotion.End_time = new_value;
+                                    }
+
+                                    db.SaveChanges();
+                                    Console.WriteLine("Значение было успешно обновлено!");
                                 }
-
-                                db.SaveChanges();
-                                Console.WriteLine("Значение было успешно обновлено!");
+                                else
+                                {
+                                    Console.WriteLine("Значение для замены не найдено.");
+                                }
                             }
-                            else
-                            {
-                                Console.WriteLine("Значение для замены не найдено.");
-                            }
+                            Console.WriteLine("Значение было успешно обновлено!");
+                            Console.WriteLine();
                         }
-                        Console.WriteLine("Значение было успешно обновлено!");
-                        Console.WriteLine();
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine($"Ошибка: {ex.Message}");
+                            Console.WriteLine();
+                        }
                     }
-                    catch (Exception ex)
+
+                    if (key_two == 4)
                     {
-                        Console.WriteLine();
-                        Console.WriteLine($"Ошибка: {ex.Message}");
-                        Console.WriteLine();
+                        break;
                     }
                 }
-
-                if (key_two.Key == ConsoleKey.D4)
+                catch (Exception ex)
                 {
-
+                    Console.WriteLine();
+                    Console.WriteLine($"Ошибка: {ex.Message}");
+                    Console.WriteLine();
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine();
-                Console.WriteLine($"Ошибка: {ex.Message}");
-                Console.WriteLine();
             }
         }
 
-        if (key_one.Key == ConsoleKey.D5)
+        if (key_one == 5)
         {
-            try
+            while(true)
             {
-                Console.WriteLine();
-                Console.WriteLine("Удалить в таблице 'Покупатели' - 1");
-                Console.WriteLine("Удалить в таблице 'Интересы' - 2");
-                Console.WriteLine("Удалить в таблице 'Акционные товары' - 3");
-                Console.WriteLine("Вернуться в основное меню - 4");
-                Console.WriteLine();
-                ConsoleKeyInfo key_two = Console.ReadKey();
-
-                if (key_two.Key == ConsoleKey.D1)
+                try
                 {
-                    try
+                    Console.WriteLine();
+                    Console.WriteLine("1 - Удалить в таблице 'Покупатели'");
+                    Console.WriteLine("2 - Удалить в таблице 'Интересы'");
+                    Console.WriteLine("3 - Удалить в таблице 'Акционные товары'");
+                    Console.WriteLine("4 - Вернуться в основное меню");
+                    Console.WriteLine();
+                    Console.Write("Введите номер опции и нажмите Enter: ");
+                    int key_two = Convert.ToInt32(Console.ReadLine());
+
+                    if (key_two == 1)
                     {
-                        Console.WriteLine();
-                        Console.Write("Введите Id записи для удаления: ");
-                        int id = Convert.ToInt32(Console.ReadLine());
-                        using (Context db = new Context())
+                        try
                         {
-                            var delete = db.Customers.Find(id);
-                            if (delete != null)
+                            Console.WriteLine();
+                            Console.Write("Введите Id записи для удаления: ");
+                            int id = Convert.ToInt32(Console.ReadLine());
+                            using (Context db = new Context())
                             {
-                                db.Customers.Remove(delete);
-                                db.SaveChanges();
+                                var delete = db.Customers.Find(id);
+                                if (delete != null)
+                                {
+                                    db.Customers.Remove(delete);
+                                    db.SaveChanges();
+                                }
                             }
+                            Console.WriteLine("Запись была успешно удалена!");
+                            Console.WriteLine();
                         }
-                        Console.WriteLine("Запись была успешно удалена!");
-                        Console.WriteLine();
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine();
-                        Console.WriteLine($"Ошибка: {ex.Message}");
-                        Console.WriteLine();
-                    }
-                }
-
-                if (key_two.Key == ConsoleKey.D2)
-                {
-                    try
-                    {
-                        Console.WriteLine();
-                        Console.Write("Введите Id записи для удаления: ");
-                        int id = Convert.ToInt32(Console.ReadLine());
-                        using (Context db = new Context())
+                        catch (Exception ex)
                         {
-                            var delete = db.Interests.Find(id);
-                            if (delete != null)
-                            {
-                                db.Interests.Remove(delete);
-                                db.SaveChanges();
-                            }
+                            Console.WriteLine();
+                            Console.WriteLine($"Ошибка: {ex.Message}");
+                            Console.WriteLine();
                         }
-                        Console.WriteLine("Запись была успешно удалена!");
-                        Console.WriteLine();
                     }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine();
-                        Console.WriteLine($"Ошибка: {ex.Message}");
-                        Console.WriteLine();
-                    }
-                }
 
-                if (key_two.Key == ConsoleKey.D3)
-                {
-                    try
+                    if (key_two == 2)
                     {
-                        Console.WriteLine();
-                        Console.Write("Введите Id записи для удаления: ");
-                        int id = Convert.ToInt32(Console.ReadLine());
-                        using (Context db = new Context())
+                        try
                         {
-                            var delete = db.Promotions.Find(id);
-                            if (delete != null)
+                            Console.WriteLine();
+                            Console.Write("Введите Id записи для удаления: ");
+                            int id = Convert.ToInt32(Console.ReadLine());
+                            using (Context db = new Context())
                             {
-                                db.Promotions.Remove(delete);
-                                db.SaveChanges();
+                                var delete = db.Interests.Find(id);
+                                if (delete != null)
+                                {
+                                    db.Interests.Remove(delete);
+                                    db.SaveChanges();
+                                }
                             }
+                            Console.WriteLine("Запись была успешно удалена!");
+                            Console.WriteLine();
                         }
-                        Console.WriteLine("Запись была успешно удалена!");
-                        Console.WriteLine();
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine($"Ошибка: {ex.Message}");
+                            Console.WriteLine();
+                        }
                     }
-                    catch (Exception ex)
+
+                    if (key_two == 3)
                     {
-                        Console.WriteLine();
-                        Console.WriteLine($"Ошибка: {ex.Message}");
-                        Console.WriteLine();
+                        try
+                        {
+                            Console.WriteLine();
+                            Console.Write("Введите Id записи для удаления: ");
+                            int id = Convert.ToInt32(Console.ReadLine());
+                            using (Context db = new Context())
+                            {
+                                var delete = db.Promotions.Find(id);
+                                if (delete != null)
+                                {
+                                    db.Promotions.Remove(delete);
+                                    db.SaveChanges();
+                                }
+                            }
+                            Console.WriteLine("Запись была успешно удалена!");
+                            Console.WriteLine();
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine($"Ошибка: {ex.Message}");
+                            Console.WriteLine();
+                        }
+                    }
+
+                    if (key_two == 4)
+                    {
+                        break;
                     }
                 }
-
-                if (key_two.Key == ConsoleKey.D4)
+                catch (Exception ex)
                 {
-
+                    Console.WriteLine();
+                    Console.WriteLine($"Ошибка: {ex.Message}");
+                    Console.WriteLine();
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine();
-                Console.WriteLine($"Ошибка: {ex.Message}");
-                Console.WriteLine();
             }
         }
 
-        if (key_one.Key == ConsoleKey.D6)
+        if (key_one == 6)
         {
             return 0;
         }
